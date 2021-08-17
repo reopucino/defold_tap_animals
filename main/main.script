@@ -1,0 +1,76 @@
+local camera = require "orthographic.camera"
+local data = require("main.data")
+local CAMERA_ID = hash("/camera")
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	-- msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
+	-- set all gameobject on platform with best position
+	local goName = 1
+	self.squareObject = 0
+	math.randomseed(os.time())
+	
+	for i =1, 5, 1 do
+		for j = 1, 3, 1 do
+			local square = math.random(0, 1) == 0 and "square" or "round"
+			local calculationX = j*120+(j-1)*80
+			local calculationY = i*150+(i*35)
+			local newPos = vmath.vector3(calculationX, calculationY, 0)
+			-- print(newPos)
+			local goPos = go.set('/go'.. goName, "position", newPos)
+			local r = math.random(0, 10)/10
+			if(square == "square") then
+				--go.set("/go" .. goName .. "#square", "cursor", r)
+				msg.post("/go" .. goName, "changeShape", {shape="square", cursor=r})
+				self.squareObject = self.squareObject + 1
+			else 
+				-- go.set("/go" .. goName .. "#round", "cursor", r)
+				-- msg.post("/go" .. goName .. "#square", "disable")
+				msg.post("/go" .. goName, "changeShape", {shape="round", cursor=r})
+			end
+			goName = goName+1
+		end
+	end
+
+	-- get camera
+	--local camera_pos  = go.get("all", "position")
+	-- print(camera_pos)
+	--go.set(CAMERA_ID, "position", vmath.vector3(320, 1136*.5, 0))
+end
+
+local function checkCollider(self, position)
+	if(position.x < 52 or position.x > 595 or data.state == data.STATE_GAMEOVER) then
+		return false
+	end
+	for i =1, 15, 1 do
+		msg.post("go" .. i , "clicked", {position = position})
+	end
+end
+
+local function reset_shape(self)
+	for i =1, 15, 1 do
+		msg.post("go" .. i , "reset_shape_animation")
+	end
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.pressed then
+		local actionPosition = vmath.vector3(action.x, action.y, 0)
+		local cursorPos = camera.screen_to_world(CAMERA_ID, actionPosition)
+		checkCollider(self, {x = cursorPos.x, y = cursorPos.y})
+		-- print("x : " .. cursorPos.x ..", y : " ..cursorPos.y)
+		-- local rectangle_size = go.get("go1#square", "size")
+		-- print(rectangle_size) -- vmath.vector3(380, 314, 1) yang di tampilkan adalah actual size, bukan yang sudah di rescale
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("reduce_shape") then
+		self.squareObject = self.squareObject - 1
+		if self.squareObject == 0 then
+			reset_shape(self)
+		end
+	elseif message_id == hash("add_shape") then
+		self.squareObject = self.squareObject + 1
+	end
+end

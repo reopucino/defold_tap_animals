@@ -1,0 +1,74 @@
+local CLICK = hash("clicked")
+local CHANGESHAPE = hash("changeShape")
+local RESETSHAPEANIMATION = hash("reset_shape_animation")
+
+go.property("name_object", hash("go"))
+
+function init(self)
+	local p = go.get(".", "position")
+	
+	local s = go.get(".", "scale")
+	local sizeImg = go.get("#square", "size") 
+	self.rectangle_width = s.x * sizeImg.x
+	self.rectangle_height = s.y * sizeImg.y
+	self.rectangle_x = p.x - self.rectangle_width*0.5
+	self.rectangle_y = p.y - self.rectangle_height*0.5
+	self.activeImg = "round"
+end
+
+local function checkCollider(self, click_pos)
+	-- print(("px  = %.2f x py = %.2f"):format(click_pos.x, click_pos.y))
+	return click_pos.x > self.rectangle_x and click_pos.x < self.rectangle_x + self.rectangle_width and click_pos.y > self.rectangle_y and click_pos.y < self.rectangle_y + self.rectangle_height
+end
+
+local function changeShape(self, message)
+	if message.shape == "round" then
+		local r = message.cursor or go.get("#square", "cursor")
+		msg.post("#square", "disable")
+		msg.post("#round", "enable")
+		go.set('#round', "cursor", r)
+		self.activeImg = "round"
+	else
+		local r = message.cursor or go.get("#square", "cursor")
+		msg.post("#round", "disable")
+		msg.post("#square", "enable")
+		go.set('#square', "cursor", r)
+		self.activeImg = "square"
+	end
+end
+
+local function animationShapeDone(self)
+	local square = math.random(0, 1) == 0 and "square" or "round"
+	local cursorR = math.random(0, 10)/10
+	changeShape(self, {shape = square, cursor = cursorR})
+	if(square == "square") then
+		msg.post("main#main", "add_shape")
+	end
+	go.animate(".", "euler.z", go.PLAYBACK_ONCE_FORWARD, -720, go.EASING_LINEAR, 0.5)
+	go.animate(".", "scale", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0.35,0.35, 1), go.EASING_LINEAR, 0.5, 0)
+end
+
+local function animationShape(self)
+	go.animate(".", "euler.z", go.PLAYBACK_ONCE_FORWARD, -360, go.EASING_LINEAR, 0.5)
+	go.animate(".", "scale", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0,0, 1), go.EASING_LINEAR, 0.5, 0, animationShapeDone)
+end
+
+
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == CLICK then
+		if checkCollider(self, message.position) and self.activeImg == "square" then
+			changeShape(self, {shape="round"})
+			msg.post("gui#game", "addscore", {score = 1})
+			msg.post("main#main", "reduce_shape")
+		elseif checkCollider(self, message.position) and self.activeImg == "round" then
+			msg.post("gui#game", "reducetimer")
+		end
+	elseif message_id == CHANGESHAPE then
+		changeShape(self, message)
+	elseif message_id == RESETSHAPEANIMATION then
+		animationShape(self)
+	end
+	
+end

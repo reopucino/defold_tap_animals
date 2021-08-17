@@ -1,0 +1,98 @@
+local TIMERINGAME = 60
+local ADDSCORE = hash("addscore")
+local REDUCETIMER = hash("reducetimer")
+local data = require("main.data")
+
+--save load system
+local function load_highscore()
+	local filename = sys.get_save_file("tap-animals", "highscore") -- <1>
+	local data = sys.load(filename) -- <2>
+	return data.highscore or 0  -- <3>
+end
+
+local function save_highscore(highscore)
+	local filename = sys.get_save_file("tap-animals", "highscore")
+	sys.save(filename, { highscore = highscore })  -- <4>
+end
+
+local function update_highscore(highscore)
+	local bestpopup = gui.get_node("best-popup")
+	gui.set_text(bestpopup, "BEST : ".. tostring(highscore))
+end
+
+
+function init(self)
+	self.currentTimerGame = TIMERINGAME
+	self.score = 0
+	self.highscore = load_highscore()
+	self.endgamecalled = false
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+local function gameovershow(self)
+	local gameoverpopup = gui.get_node("gameover-popup")
+	gui.set_color(gameoverpopup, vmath.vector4(0,0,0,0))
+	gui.set_position(gameoverpopup, vmath.vector3(328, 591, 0))
+	gui.animate(gameoverpopup, gui.PROP_COLOR, vmath.vector4(1,1,1,1), gui.EASING_LINEAR, 0.5)
+
+	local scorepopup = gui.get_node("score-popup")
+	gui.set_text(scorepopup, self.score)
+
+	if(self.score>self.highscore) then
+		self.highscore = self.score
+		save_highscore(self.highscore)
+	end
+	update_highscore(self.highscore)
+	-- set best
+end
+
+local function end_game(self)
+	local nodetimeup = gui.get_node("timeup")
+	gui.set_position(nodetimeup, vmath.vector3(328, 556, 0))
+	gui.set_color(nodetimeup, vmath.vector4(0,0,0,0))
+
+	gui.animate(nodetimeup, gui.PROP_COLOR, vmath.vector4(0,0,0, 1), gui.EASING_LINEAR, 0.5)
+	gui.animate(nodetimeup, "position.y", 586, gui.EASING_OUTELASTIC, 0.5, 0, gameovershow)
+	self.endgamecalled = true
+	data.state = data.STATE_GAMEOVER
+end
+
+local function reduce_timer(self)
+	self.currentTimerGame = self.currentTimerGame - 2
+	if self.currentTimerGame < 0 then
+		self.currentTimerGame = 0
+	end
+end
+
+
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+	if self.endgamecalled == true then
+		return
+	end
+	self.currentTimerGame = self.currentTimerGame - dt
+	local seconds = math.floor(self.currentTimerGame + 0.5) %60
+	local minutes = math.floor(self.currentTimerGame+0.5)/60
+	gui.set_text(gui.get_node("timer"), string.format("%02d:%02d", minutes, seconds))
+	if(self.currentTimerGame <=0 and self.endgamecalled == false)then
+		-- print("endgame")
+		end_game(self)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == ADDSCORE then
+		self.score = self.score + message.score
+		gui.set_text(gui.get_node("score"), self.score)
+	elseif message_id == REDUCETIMER then
+		reduce_timer(self)
+	end
+end
