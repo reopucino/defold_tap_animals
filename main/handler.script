@@ -9,8 +9,16 @@ function on_message(self, message_id, message,sender)
 		--print("loaded")
 	elseif message_id == hash("show_game") then
 		msg.post("handler#game", "load")
-		-- msg.post("handler#menu", "unload")
+		msg.post("handler#menu", "unload")
 		local cameraGO = go.set("/camera", "position", vmath.vector3(320,1136*.5,0))
-		print(cameraGO)
+		-- print(cameraGO)
+	elseif message_id == hash("show_mainmenu") then
+		msg.post("handler#game", "unload")
+		msg.post("handler#menu", "load")
+		print("show main menu")
+		local cameraGO = go.set("/camera", "position", vmath.vector3(0,0,0))
+	elseif message_id == hash("game_ended")then
+		print("game ended, and call from " .. sender)
 	end
+	
 end

@@ -2,14 +2,12 @@ local camera = require "orthographic.camera"
 local data = require("main.data")
 local CAMERA_ID = hash("/camera")
 
-function init(self)
-	msg.post(".", "acquire_input_focus")
-	-- msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
-	-- set all gameobject on platform with best position
+
+local function restart_game(self)
 	local goName = 1
 	self.squareObject = 0
 	math.randomseed(os.time())
-	
+
 	for i =1, 5, 1 do
 		for j = 1, 3, 1 do
 			local square = math.random(0, 1) == 0 and "square" or "round"
@@ -32,10 +30,20 @@ function init(self)
 		end
 	end
 
+	data.state = data.STATE_PLAY
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	-- msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
+	-- set all gameobject on platform with best position
+	restart_game(self)
 	-- get camera
-	--local camera_pos  = go.get("all", "position")
-	-- print(camera_pos)
-	--go.set(CAMERA_ID, "position", vmath.vector3(320, 1136*.5, 0))
+	--[[
+	-- local camera_pos  = go.get("all:/camera", "position")
+	-- print(camera_pos)  -- go.get can only access instances within the same collection.
+	-- go.set(CAMERA_ID, "position", vmath.vector3(320, 1136*.5, 0))
+	]]--
 end
 
 local function checkCollider(self, position)
@@ -72,5 +80,7 @@ function on_message(self, message_id, message, sender)
 		end
 	elseif message_id == hash("add_shape") then
 		self.squareObject = self.squareObject + 1
+	elseif message_id == hash("restart_game")then
+		restart_game(self)
 	end
 end
