@@ -47,7 +47,7 @@ function init(self)
 end
 
 local function checkCollider(self, position)
-	if(position.x < 52 or position.x > 595 or data.state == data.STATE_GAMEOVER) then
+	if(position.x < 52 or position.x > 595 or data.state == data.STATE_GAMEOVER or data.state == data.STATE_PAUSE) then
 		return false
 	end
 	for i =1, 15, 1 do
