@@ -6,5 +6,6 @@ M.STATE_GAMEOVER = 2
 M.STATE_PAUSE = 3
 
 M.state = M.STATE_PLAY
+M.bgm_play = false
 
 return M

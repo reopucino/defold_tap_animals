@@ -37,9 +37,23 @@ local function reset_gui(self)
 	gui.set_position(gameoverpopup, vmath.vector3(1604, 591, 0))
 end
 
+local function random_play_sound_error(self)
+	local randomSound = math.random(0, 3)
+	if randomSound == 0 then
+		sound.play("all:/sound#error1", {gain=1})
+	elseif randomSound == 1 then
+		sound.play("all:/sound#error2", {gain=1})
+	elseif randomSound == 2 then
+		sound.play("all:/sound#error3", {gain=1})
+	else
+		sound.play("all:/sound#error4", {gain=1})
+	end
+end
+
 function init(self)
 	restart_data(self)
 	self.highscore = load_highscore()
+	self.correct_answer = 0
 
 	msg.post(".", "acquire_input_focus")
 end
@@ -109,8 +123,23 @@ function on_message(self, message_id, message, sender)
 	if message_id == ADDSCORE then
 		self.score = self.score + message.score
 		gui.set_text(gui.get_node("score"), self.score)
+		if self.correct_answer == 0 then
+			sound.play("all:/sound#correct1", {gain=0.5})
+			self.correct_answer = self.correct_answer + 1
+		elseif self.correct_answer == 1 then
+			sound.play("all:/sound#correct2", {gain=0.5})
+			self.correct_answer = self.correct_answer + 1
+		elseif self.correct_answer == 2 then
+			sound.play("all:/sound#correct3", {gain=0.5})
+			self.correct_answer = self.correct_answer + 1
+		else
+			sound.play("all:/sound#correct4", {gain=0.5})
+			self.correct_answer = 3
+		end
 	elseif message_id == REDUCETIMER then
 		reduce_timer(self)
+		self.correct_answer = 0
+		random_play_sound_error(self)
 	elseif message_id == RESTART_GAME then
 		
 	end
@@ -118,18 +147,26 @@ end
 
 function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then -- <2>
-		if gui.pick_node(gui.get_node("btn-home"), action.x, action.y) then -- <5>
+		if gui.pick_node(gui.get_node("btn-home"), action.x, action.y) or gui.pick_node(gui.get_node("btn-home-pause"), action.x, action.y)then -- <5>
 			msg.post("all:/handler", "show_mainmenu")
+			sound.play("all:/sound#click2", {gain = 1})
 		elseif gui.pick_node(gui.get_node("btn-retry"), action.x, action.y) then -- <5>
 			restart_data(self)
 			reset_gui(self)
 			msg.post('/main#main', "restart_game")
+			sound.play("all:/sound#click1", {gain = 1})
 		elseif gui.pick_node(gui.get_node("btn-pause"), action.x, action.y) then -- <5>
 			data.state = data.STATE_PAUSE
 			gui.set_position(gui.get_node("pause-popup"), vmath.vector3(328, 556, 0))
+			gui.set_position(gui.get_node("ui-timer"), vmath.vector3(-500, 556, 0))
+			gui.set_position(gui.get_node("btn-pause"), vmath.vector3(-500, 556, 0))
+			sound.play("all:/sound#click2", {gain = 1})
 		elseif gui.pick_node(gui.get_node("btn-play"), action.x, action.y) then -- <5>
+			sound.play("all:/sound#click1", {gain = 1})
 			data.state = data.STATE_PLAY
 			gui.set_position(gui.get_node("pause-popup"), vmath.vector3(2792, 556, 0))
+			gui.set_position(gui.get_node("ui-timer"), vmath.vector3(97, 1097, 0))
+			gui.set_position(gui.get_node("btn-pause"), vmath.vector3(600, 1101, 0))
 		end
 	end
 end
