@@ -66,9 +66,9 @@ function on_input(self, action_id, action)
 		local actionPosition = vmath.vector3(action.x, action.y, 0)
 		local cursorPos = camera.screen_to_world(CAMERA_ID, actionPosition)
 		checkCollider(self, {x = cursorPos.x, y = cursorPos.y})
-		local go = go.get("all:/particle", "position")
-		print(go)
-		particlefx.play("all:/particle#sample")
+		-- local go = go.get("all:/particle", "position") -- go only can be called in same collection
+		-- print(go)
+		-- particlefx.play("all:/particle#sample")
 		-- print("x : " .. cursorPos.x ..", y : " ..cursorPos.y)
 		-- local rectangle_size = go.get("go1#square", "size")
 		-- print(rectangle_size) -- vmath.vector3(380, 314, 1) yang di tampilkan adalah actual size, bukan yang sudah di rescale
