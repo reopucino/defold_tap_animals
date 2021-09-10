@@ -86,7 +86,7 @@ embedded_instances {
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "\"\n"
   "  position {\n"
-  "    x: 0.0\n"
+  "    x: 305.714\n"
   "    y: 0.0\n"
   "    z: 0.0\n"
   "  }\n"
@@ -167,7 +167,7 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
+    x: 294.0
     y: 916.0
     z: 0.0
   }
