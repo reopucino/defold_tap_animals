@@ -1,7 +1,19 @@
+local table_o = {1, 2, 3, 4}
+
 function init(self)
 	-- Add initialization code here
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
+	for i=1, 4, 1 do
+		local r = table_o[i]*0.1
+		if i == 2 or i == 3 then
+			msg.post("/tutorial_go" .. i, "changeShape", {shape="square", cursor=r})	
+		else
+			msg.post("/tutorial_go" .. i, "changeShape", {shape="round", cursor=r})
+		end
+	end
+
+	go.set("/hand#sprite", "tint", vmath.vector4(1,0,0,1))
 end
 
 function final(self)
