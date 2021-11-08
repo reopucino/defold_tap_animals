@@ -1,23 +1,36 @@
-name: "main"
+name: "default"
+instances {
+  id: "camera"
+  prototype: "/orthographic/camera.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "script"
+    properties {
+      id: "projection"
+      value: "FIXED_AUTO"
+      type: PROPERTY_TYPE_HASH
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "main"
-  data: "components {\n"
-  "  id: \"main\"\n"
-  "  component: \"/main/main.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
+  data: "embedded_components {\n"
   "  id: \"background\"\n"
   "  type: \"sprite\"\n"
   "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
@@ -39,8 +52,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 320.0
-    y: 568.0
+    x: 21.0
+    y: 26.0
     z: 0.0
   }
   rotation {
@@ -56,133 +69,14 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go1"
+  id: "radio_click"
+  children: "radio_button1"
+  children: "radio_button2"
+  children: "tutorial_holder"
+  children: "tutorial_holder_2"
   data: "components {\n"
-  "  id: \"klik\"\n"
-  "  component: \"/main/objectklik.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"round\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
-  "default_animation: \\\"round\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "blend_mode: BLEND_MODE_ALPHA\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"collisionobject\"\n"
-  "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"\\\"\\n"
-  "type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
-  "mass: 0.0\\n"
-  "friction: 0.1\\n"
-  "restitution: 0.5\\n"
-  "group: \\\"default\\\"\\n"
-  "mask: \\\"default\\\"\\n"
-  "embedded_collision_shape {\\n"
-  "  shapes {\\n"
-  "    shape_type: TYPE_BOX\\n"
-  "    position {\\n"
-  "      x: 0.0\\n"
-  "      y: 0.0\\n"
-  "      z: 0.0\\n"
-  "    }\\n"
-  "    rotation {\\n"
-  "      x: 0.0\\n"
-  "      y: 0.0\\n"
-  "      z: 0.0\\n"
-  "      w: 1.0\\n"
-  "    }\\n"
-  "    index: 0\\n"
-  "    count: 3\\n"
-  "  }\\n"
-  "  data: 180.0\\n"
-  "  data: 170.0\\n"
-  "  data: 10.0\\n"
-  "}\\n"
-  "linear_damping: 0.0\\n"
-  "angular_damping: 0.0\\n"
-  "locked_rotation: false\\n"
-  "bullet: false\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"square\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
-  "default_animation: \\\"square\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "blend_mode: BLEND_MODE_ALPHA\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 530.0
-    y: 916.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 0.35
-    y: 0.35
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "gui"
-  data: "components {\n"
-  "  id: \"game\"\n"
-  "  component: \"/main/game.gui\"\n"
+  "  id: \"radioklik\"\n"
+  "  component: \"/main/radioklik.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -214,76 +108,15 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "controller"
-  data: ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "pointer"
+  id: "tutorial_holder"
+  children: "hand"
+  children: "tutorial_go1"
+  children: "tutorial_go2"
+  children: "tutorial_go3"
+  children: "tutorial_go4"
   data: "components {\n"
-  "  id: \"pointer\"\n"
-  "  component: \"/main/pointer.script\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"collisionobject\"\n"
-  "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"\\\"\\n"
-  "type: COLLISION_OBJECT_TYPE_TRIGGER\\n"
-  "mass: 0.0\\n"
-  "friction: 0.1\\n"
-  "restitution: 0.5\\n"
-  "group: \\\"default\\\"\\n"
-  "mask: \\\"default\\\"\\n"
-  "embedded_collision_shape {\\n"
-  "  shapes {\\n"
-  "    shape_type: TYPE_SPHERE\\n"
-  "    position {\\n"
-  "      x: 0.0\\n"
-  "      y: 0.0\\n"
-  "      z: 0.0\\n"
-  "    }\\n"
-  "    rotation {\\n"
-  "      x: 0.0\\n"
-  "      y: 0.0\\n"
-  "      z: 0.0\\n"
-  "      w: 1.0\\n"
-  "    }\\n"
-  "    index: 0\\n"
-  "    count: 1\\n"
-  "  }\\n"
-  "  data: 10.0\\n"
-  "}\\n"
-  "linear_damping: 0.0\\n"
-  "angular_damping: 0.0\\n"
-  "locked_rotation: false\\n"
-  "bullet: false\\n"
-  "\"\n"
+  "  id: \"tutorial\"\n"
+  "  component: \"/main/tutorial.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -306,8 +139,8 @@ embedded_instances {
   "  w: 0.0\\n"
   "}\\n"
   "scale {\\n"
-  "  x: 1.0\\n"
-  "  y: 1.0\\n"
+  "  x: 0.7\\n"
+  "  y: 0.7\\n"
   "  z: 1.0\\n"
   "  w: 0.0\\n"
   "}\\n"
@@ -318,15 +151,15 @@ embedded_instances {
   "  w: 1.0\\n"
   "}\\n"
   "outline {\\n"
-  "  x: 1.0\\n"
-  "  y: 1.0\\n"
-  "  z: 1.0\\n"
+  "  x: 0.0\\n"
+  "  y: 0.0\\n"
+  "  z: 0.0\\n"
   "  w: 1.0\\n"
   "}\\n"
   "shadow {\\n"
-  "  x: 1.0\\n"
-  "  y: 1.0\\n"
-  "  z: 1.0\\n"
+  "  x: 0.0\\n"
+  "  y: 0.0\\n"
+  "  z: 0.0\\n"
   "  w: 1.0\\n"
   "}\\n"
   "leading: 1.0\\n"
@@ -334,13 +167,112 @@ embedded_instances {
   "pivot: PIVOT_CENTER\\n"
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "line_break: false\\n"
-  "text: \\\"pointerx : 0, pointery: 0\\\"\\n"
-  "font: \\\"/builtins/fonts/system_font.font\\\"\\n"
+  "text: \\\"CLICK SQUARE ANIMALS\\\"\\n"
+  "font: \\\"/main/roboto.font\\\"\\n"
+  "material: \\\"/builtins/fonts/label.material\\\"\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 113.0\n"
+  "    y: 108.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: -995.667
+    y: 152.667
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "tutorial_holder_2"
+  children: "tutorial_go11"
+  children: "tutorial_go12"
+  children: "tutorial_go13"
+  children: "tutorial_go14"
+  children: "tutorial_go15"
+  children: "tutorial_go16"
+  children: "tutorial_go17"
+  children: "tutorial_go18"
+  children: "tutorial_go19"
+  children: "tutorial_go20"
+  data: "components {\n"
+  "  id: \"tutorial_arrange\"\n"
+  "  component: \"/main/tutorial_arrange.script\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"label\"\n"
+  "  type: \"label\"\n"
+  "  data: \"size {\\n"
+  "  x: 128.0\\n"
+  "  y: 32.0\\n"
+  "  z: 0.0\\n"
+  "  w: 0.0\\n"
+  "}\\n"
+  "scale {\\n"
+  "  x: 0.7\\n"
+  "  y: 0.7\\n"
+  "  z: 1.0\\n"
+  "  w: 0.0\\n"
+  "}\\n"
+  "color {\\n"
+  "  x: 0.0\\n"
+  "  y: 0.0\\n"
+  "  z: 0.0\\n"
+  "  w: 1.0\\n"
+  "}\\n"
+  "outline {\\n"
+  "  x: 0.0\\n"
+  "  y: 0.0\\n"
+  "  z: 0.0\\n"
+  "  w: 1.0\\n"
+  "}\\n"
+  "shadow {\\n"
+  "  x: 0.0\\n"
+  "  y: 0.0\\n"
+  "  z: 0.0\\n"
+  "  w: 1.0\\n"
+  "}\\n"
+  "leading: 1.0\\n"
+  "tracking: 0.0\\n"
+  "pivot: PIVOT_CENTER\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "line_break: false\\n"
+  "text: \\\"SQUARE ANIMALS\\\"\\n"
+  "font: \\\"/main/roboto.font\\\"\\n"
   "material: \\\"/builtins/fonts/label.material\\\"\\n"
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"
-  "    y: 0.0\n"
+  "    y: 465.0\n"
   "    z: 0.0\n"
   "  }\n"
   "  rotation {\n"
@@ -369,7 +301,47 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go15"
+  id: "hand"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
+  "default_animation: \\\"hand\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 117.0
+    y: -511.0
+    z: 0.1
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "tutorial_go1"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -383,6 +355,11 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -475,8 +452,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 222.0
+    y: -50.0
     z: 0.0
   }
   rotation {
@@ -492,7 +469,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go2"
+  id: "tutorial_go2"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -506,6 +483,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"2.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -598,8 +585,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 0.0
+    y: -50.0
     z: 0.0
   }
   rotation {
@@ -615,7 +602,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go3"
+  id: "tutorial_go3"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -629,6 +616,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"3.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -721,8 +718,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 222.0
+    y: -313.0
     z: 0.0
   }
   rotation {
@@ -738,7 +735,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go4"
+  id: "tutorial_go4"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -752,6 +749,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"4.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -844,8 +851,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 0.0
+    y: -313.0
     z: 0.0
   }
   rotation {
@@ -861,7 +868,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go5"
+  id: "tutorial_go11"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -875,6 +882,11 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -967,8 +979,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 213.0
+    y: 288.0
     z: 0.0
   }
   rotation {
@@ -984,7 +996,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go6"
+  id: "tutorial_go12"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -998,6 +1010,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"2.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1090,8 +1112,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -241.0
+    y: 288.0
     z: 0.0
   }
   rotation {
@@ -1107,7 +1129,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go7"
+  id: "tutorial_go13"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1121,6 +1143,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"3.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1213,8 +1245,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 213.0
+    y: 25.0
     z: 0.0
   }
   rotation {
@@ -1230,7 +1262,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go8"
+  id: "tutorial_go14"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1244,6 +1276,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"4.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1336,8 +1378,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -241.0
+    y: -190.0
     z: 0.0
   }
   rotation {
@@ -1353,7 +1395,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go9"
+  id: "tutorial_go15"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1367,6 +1409,11 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1459,8 +1506,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -19.0
+    y: -181.0
     z: 0.0
   }
   rotation {
@@ -1476,7 +1523,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go10"
+  id: "tutorial_go16"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1490,6 +1537,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"3.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1582,8 +1639,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -19.0
+    y: 25.0
     z: 0.0
   }
   rotation {
@@ -1599,7 +1656,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go11"
+  id: "tutorial_go17"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1613,6 +1670,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"4.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1705,8 +1772,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -241.0
+    y: 25.0
     z: 0.0
   }
   rotation {
@@ -1722,7 +1789,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go12"
+  id: "tutorial_go18"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1736,6 +1803,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"2.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1828,8 +1905,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: 240.0
+    y: -190.0
     z: 0.0
   }
   rotation {
@@ -1845,7 +1922,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go13"
+  id: "tutorial_go19"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1859,6 +1936,11 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -1951,8 +2033,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -19.0
+    y: 288.0
     z: 0.0
   }
   rotation {
@@ -1968,7 +2050,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go14"
+  id: "tutorial_go20"
   data: "components {\n"
   "  id: \"klik\"\n"
   "  component: \"/main/objectklik.script\"\n"
@@ -1982,6 +2064,16 @@ embedded_instances {
   "    y: 0.0\n"
   "    z: 0.0\n"
   "    w: 1.0\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"for_tutorial\"\n"
+  "    value: \"true\"\n"
+  "    type: PROPERTY_TYPE_BOOLEAN\n"
+  "  }\n"
+  "  properties {\n"
+  "    id: \"tutorial_id\"\n"
+  "    value: \"2.0\"\n"
+  "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"
   "embedded_components {\n"
@@ -2074,8 +2166,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 114.0
-    y: 916.0
+    x: -3.0
+    y: -132.0
     z: 0.0
   }
   rotation {
@@ -2087,6 +2179,86 @@ embedded_instances {
   scale3 {
     x: 0.35
     y: 0.35
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "radio_button1"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
+  "default_animation: \\\"radio_button\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 67.0
+    y: -400.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "radio_button2"
+  data: "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"tile_set: \\\"/main/main.atlas\\\"\\n"
+  "default_animation: \\\"radio_button\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  ""
+  position {
+    x: 0.0
+    y: -400.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
     z: 1.0
   }
 }

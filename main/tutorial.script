@@ -1,9 +1,59 @@
 local table_o = {1, 2, 3, 4}
+local current_cursor = 2
+local tutorial_step = 1
+
+local ANIMATIONS_CLICK = hash("animation_hand_click")
+local ANIMATIONS_MOVE = hash("animation_hand_move")
+local RESET_SHAPE = hash("reset_shape")
+
+local function done_step(self)
+	tutorial_step = tutorial_step +1
+	if tutorial_step == 2 then
+		msg.post(".", "animation_hand_click")
+	elseif tutorial_step == 3 then
+		msg.post(".", "animation_hand_move")
+	elseif tutorial_step == 4 then
+		msg.post(".", "animation_hand_click")
+	elseif tutorial_step == 5 then
+		msg.post(".", "animation_hand_move")
+	elseif tutorial_step == 6 then
+		tutorial_step = 1
+		timer.delay(1, false, function() msg.post(".", "animation_hand_move") end )
+	end
+end
+
+
+local function animate_hand_move(self, message)
+	if tutorial_step == 1 then
+		go.animate("/hand", "position", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(20, -50, 0.1), go.EASING_LINEAR, 1, message.delay, done_step)
+	elseif tutorial_step == 3 then
+		go.animate("/hand", "position", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(241, -310, 0.1), go.EASING_LINEAR, 1, message.delay, done_step)
+	elseif tutorial_step == 5 then
+		go.animate("/hand", "position", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(117, -521, 0.1), go.EASING_LINEAR, 1, message.delay, done_step)
+	end	
+end
+
+
+local function animate_hand_click(self, messaage)
+	local poY = go.get("/hand", "position.y")
+	go.animate('/hand', "position.y", go.PLAYBACK_ONCE_PINGPONG, poY-20, go.EASING_LINEAR, 0.2, messaage.delay, done_step)
+	timer.delay(0.4, false, function() 
+		if tutorial_step == 2 then
+			msg.post("/tutorial_go2", "changeShape", {shape = "round"}) 
+		elseif tutorial_step == 4 then
+			msg.post("/tutorial_go3", "changeShape", {shape = "round"}) 
+			msg.post(".", "reset_shape") 
+		end
+	end)
+end
+
+local function reset_shape(self)
+	for i =1, 4, 1 do
+		msg.post("tutorial_go" .. i , "reset_shape_animation")
+	end
+end
 
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 	for i=1, 4, 1 do
 		local r = table_o[i]*0.1
 		if i == 2 or i == 3 then
@@ -14,6 +64,7 @@ function init(self)
 	end
 
 	go.set("/hand#sprite", "tint", vmath.vector4(1,0,0,1))
+	msg.post(".", "animation_hand_move")
 end
 
 function final(self)
@@ -29,9 +80,13 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+	if message_id == ANIMATIONS_MOVE then
+		animate_hand_move(self, {delay = 0.35})
+	elseif message_id == ANIMATIONS_CLICK then
+		animate_hand_click(self, {delay = 0.35})
+	elseif message_id == RESET_SHAPE then 
+		reset_shape(self)
+	end
 end
 
 function on_input(self, action_id, action)

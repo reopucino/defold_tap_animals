@@ -2,7 +2,8 @@ local CLICK = hash("clicked")
 local CHANGESHAPE = hash("changeShape")
 local RESETSHAPEANIMATION = hash("reset_shape_animation")
 
-go.property("name_object", hash("go"))
+go.property("for_tutorial", false)
+go.property("tutorial_id", 1)
 
 function init(self)
 	local p = go.get(".", "position")
@@ -41,8 +42,20 @@ local function animationShapeDone(self)
 	local square = math.random(0, 1) == 0 and "square" or "round"
 	local cursorR = math.random(0, 10)/10
 	changeShape(self, {shape = square, cursor = cursorR})
+	if self.for_tutorial then
+		local tutorial_id = self.tutorial_id
+		cursorR = tutorial_id *0.1
+		if tutorial_id == 2 or tutorial_id == 3 then
+			square = "square"	
+		else
+			square = "round"
+		end
+		changeShape(self, {shape = square, cursor = cursorR})
+	end
 	if(square == "square") then
-		msg.post("main#main", "add_shape")
+		if self.for_tutorial == false then
+			msg.post("main#main", "add_shape")
+		end
 	end
 	go.animate(".", "euler.z", go.PLAYBACK_ONCE_FORWARD, -720, go.EASING_LINEAR, 0.5)
 	go.animate(".", "scale", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0.35,0.35, 1), go.EASING_LINEAR, 0.5, 0)

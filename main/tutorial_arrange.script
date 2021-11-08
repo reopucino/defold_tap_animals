@@ -1,0 +1,56 @@
+function init(self)
+	local px = 2
+	local py = 1
+	for i=11, 20, 1 do
+		local r = (i*0.1)-1.1
+		if py == 4 then
+			px = 3
+		end
+		local calculationX = -595+px*200
+		local calculationY = 500-(py*200)
+		if(px > 3) then
+			px = 1
+			py = py+1
+		end
+		px = px +1
+		local newPos = vmath.vector3(calculationX, calculationY, 0)
+		local goPos = go.set('/tutorial_go'.. i, "position", newPos)
+		msg.post("/tutorial_go" .. i, "changeShape", {shape="square", cursor=r})
+	end
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
