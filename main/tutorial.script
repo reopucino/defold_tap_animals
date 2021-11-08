@@ -1,5 +1,4 @@
 local table_o = {1, 2, 3, 4}
-local current_cursor = 2
 local tutorial_step = 1
 
 local ANIMATIONS_CLICK = hash("animation_hand_click")

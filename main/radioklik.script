@@ -1,5 +1,12 @@
 local helper = require("main.helper")
-local radio_buttons_pos = {}
+local camera = require "orthographic.camera"
+local CAMERA_ID = hash("/camera")
+local UPDATE_RADIO_BUTTON = hash("radio_button_update")
+
+
+local radio_buttons_collider = {}
+local current_cursor = 2
+
 
 function init(self)
 	-- Add initialization code here
@@ -9,12 +16,21 @@ function init(self)
 	local sizeImg = go.get("/radio_button1#sprite", "size") 
 	for i =1, 2, 1 do
 		local pos = go.get("radio_button" .. i, "position")
-		table.insert(radio_buttons_pos, pos)
+		local rectangle = {x = pos.x -sizeImg.x*.5, y = pos.y-sizeImg.y*.5, width = sizeImg.x, height = sizeImg.y}
+		table.insert(radio_buttons_collider, rectangle)
 	end
-	print(radio_buttons_pos[1])
-	print(radio_buttons_pos[2])
-	self.rectangle = {x=10, y=10, width=100, height=100}
-	-- table.insert(radio_buttons, "")//object
+	
+	msg.post(".", "radio_button_update")
+end
+
+local function radio_button_update()
+	if current_cursor == 1 then
+		go.set("/radio_button1#sprite", "cursor", 0.5)
+		go.set("/radio_button2#sprite", "cursor", 0)
+	else 
+		go.set("/radio_button1#sprite", "cursor", 0)
+		go.set("/radio_button2#sprite", "cursor", 0.5)
+	end
 end
 
 function final(self)
@@ -33,10 +49,21 @@ function on_message(self, message_id, message, sender)
 	-- Add message-handling code here
 	-- Learn more: https://defold.com/manuals/message-passing/
 	-- Remove this function if not needed
+	if message_id == UPDATE_RADIO_BUTTON then
+		radio_button_update()
+	end
 end
 
-local function checkAllRadioButtonCollide()
-	
+local function checkAllRadioButtonCollide(self, position)
+	--table.foreach(radio_buttons_collider, print)
+	for key,value in ipairs(radio_buttons_collider) do 
+		--print(key,value) 
+		local check = helper.checkCollide(position, value)
+		if(check == true)then
+			current_cursor = key
+			break
+		end
+	end
 end
 
 function on_input(self, action_id, action)
@@ -50,9 +77,10 @@ function on_input(self, action_id, action)
 	-- Learn more: https://defold.com/manuals/input/
 	-- Remove this function if not needed
 	if action_id == hash("touch") and action.pressed then -- <2>
-		local pos = vmath.vector3(action.x, action.y, 0)
-		local check = helper.checkCollide(pos, self.rectangle)
-		print(check)
+		local actionPosition = vmath.vector3(action.x, action.y, 0)
+		local cursorPos = camera.screen_to_world(CAMERA_ID, actionPosition)
+		checkAllRadioButtonCollide(self, cursorPos)
+		radio_button_update()
 	end
 end
 
