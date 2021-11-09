@@ -6,7 +6,7 @@ local UPDATE_RADIO_BUTTON = hash("radio_button_update")
 
 local radio_buttons_collider = {}
 local current_cursor = 2
-
+local speedSlide = 0.3
 
 function init(self)
 	-- Add initialization code here
@@ -23,13 +23,25 @@ function init(self)
 	msg.post(".", "radio_button_update")
 end
 
+local function move_slide(self, slide)
+	if(slide == 1) then
+		go.animate("tutorial_holder_1", "position.x", go.PLAYBACK_ONCE_FORWARD, -115, go.EASING_LINEAR, speedSlide)
+		go.animate("tutorial_holder_2", "position.x", go.PLAYBACK_ONCE_FORWARD, 1000, go.EASING_LINEAR, speedSlide)
+	else 
+		go.animate("tutorial_holder_1", "position.x", go.PLAYBACK_ONCE_FORWARD, -1000, go.EASING_LINEAR, speedSlide)
+		go.animate("tutorial_holder_2", "position.x", go.PLAYBACK_ONCE_FORWARD, 0, go.EASING_LINEAR, speedSlide)
+	end
+end
+
 local function radio_button_update()
 	if current_cursor == 1 then
 		go.set("/radio_button1#sprite", "cursor", 0.5)
 		go.set("/radio_button2#sprite", "cursor", 0)
+		move_slide(self, 1)
 	else 
 		go.set("/radio_button1#sprite", "cursor", 0)
 		go.set("/radio_button2#sprite", "cursor", 0.5)
+		move_slide(self, 2)
 	end
 end
 

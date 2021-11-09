@@ -72,7 +72,7 @@ embedded_instances {
   id: "radio_click"
   children: "radio_button1"
   children: "radio_button2"
-  children: "tutorial_holder"
+  children: "tutorial_holder_1"
   children: "tutorial_holder_2"
   data: "components {\n"
   "  id: \"radioklik\"\n"
@@ -108,7 +108,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "tutorial_holder"
+  id: "tutorial_holder_1"
   children: "hand"
   children: "tutorial_go1"
   children: "tutorial_go2"
@@ -186,7 +186,7 @@ embedded_instances {
   ""
   position {
     x: -995.667
-    y: 152.667
+    y: 235.667
     z: 0.0
   }
   rotation {
