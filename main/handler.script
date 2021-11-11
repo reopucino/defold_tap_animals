@@ -17,6 +17,11 @@ function on_message(self, message_id, message,sender)
 		msg.post("handler#menu", "load")
 		print("show main menu")
 		local cameraGO = go.set("/camera", "position", vmath.vector3(0,0,0))
+	elseif message_id == hash("show_tutorial") then
+		--msg.post("handler#game", "unload")
+		msg.post("handler#tutorial", "load")
+	elseif message_id == hash("tutorial_close") then
+		msg.post("handler#tutorial", "unload")
 	elseif message_id == hash("game_ended")then
 		print("game ended, and call from " .. sender)
 	end
