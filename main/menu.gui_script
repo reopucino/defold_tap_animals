@@ -7,8 +7,6 @@ local function checksound(self)
 	else 
 		gui.set_text(soundText, "SOUND : OFF")
 	end
-
-	print(data.sound)
 end
 
 function init(self)
@@ -25,7 +23,10 @@ function init(self)
 	self.soundactive = true
 	]]--
 	if(data.sound) then
-		sound.play("all:/sound#music", {gain = 0.25})
+		if (not data.bgm_play) then
+			data.bgm_play = true
+			sound.play("all:/sound#music", {gain = 0.25})
+		end
 	end
 
 	checksound(self)
