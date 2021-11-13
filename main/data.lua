@@ -7,5 +7,6 @@ M.STATE_PAUSE = 3
 
 M.state = M.STATE_PLAY
 M.bgm_play = false
+M.sound = false
 
 return M

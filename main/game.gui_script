@@ -7,8 +7,8 @@ local data = require("main.data")
 --save load system
 local function load_highscore()
 	local filename = sys.get_save_file("tap-animals", "highscore") -- <1>
-	local data = sys.load(filename) -- <2>
-	return data.highscore or 0  -- <3>
+	local data_load = sys.load(filename) -- <2>
+	return data_load.highscore or 0  -- <3>
 end
 
 local function save_highscore(highscore)

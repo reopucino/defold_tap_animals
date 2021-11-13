@@ -1,13 +1,27 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("handler#menu", "load")
+	load_tutorial(self)
+end
+
+function load_tutorial(self)
+	local filename = sys.get_save_file("tap-animals", "highscore") -- <1>
+	local data_load = sys.load(filename)
+	return data_load.tutorial or false  -- <3>
+end
+
+function save_tutorial()
+	local filename = sys.get_save_file("tap-animals", "highscore")
+	local data_load = sys.load(filename)
+	data_load.tutorial = true
+	sys.save(filename, data_load)  -- <4>
 end
 
 function on_message(self, message_id, message,sender)
 	if message_id == hash("proxy_loaded")then	
 		msg.post(sender, "enable")	
 		print("loaded")
-	elseif message_id == hash("show_game") then
+	elseif message_id == hash("show_game") then		
 		msg.post("handler#game", "load")
 		msg.post("handler#menu", "unload")
 		local cameraGO = go.set("/camera", "position", vmath.vector3(320,1136*.5,0))
@@ -18,10 +32,11 @@ function on_message(self, message_id, message,sender)
 		print("show main menu")
 		local cameraGO = go.set("/camera", "position", vmath.vector3(0,0,0))
 	elseif message_id == hash("show_tutorial") then
-		--msg.post("handler#game", "unload")
-		msg.post("handler#tutorial", "load")
+		msg.post("handler#menu", "unload")
+		msg.post("handler#tutorial", "load")		
 	elseif message_id == hash("tutorial_close") then
 		msg.post("handler#tutorial", "unload")
+		msg.post("handler#menu", "load")
 	elseif message_id == hash("game_ended")then
 		print("game ended, and call from " .. sender)
 	end

@@ -1,15 +1,34 @@
 local data = require("main.data")
 
+local function checksound(self)
+	local soundText = gui.get_node("soundtext")
+	if data.sound == true then
+		gui.set_text(soundText, "SOUND : ON")
+	else 
+		gui.set_text(soundText, "SOUND : OFF")
+	end
+
+	print(data.sound)
+end
+
 function init(self)
 	-- Add initialization code here
 	-- Learn more: https://defold.com/manuals/script/
 	-- Remove this function if not needed
 	data.state = data.STATE_MENU
 	msg.post(".", "acquire_input_focus")
+	--[[
 	if(not data.bgm_play) then
 		data.bgm_play = true
 		sound.play("all:/sound#music", {gain = 0.25})
 	end
+	self.soundactive = true
+	]]--
+	if(data.sound) then
+		sound.play("all:/sound#music", {gain = 0.25})
+	end
+
+	checksound(self)
 end
 
 function final(self)
@@ -47,6 +66,26 @@ function on_input(self, action_id, action)
 		elseif gui.pick_node(gui.get_node("btntutorial"), action.x, action.y) then -- <5>
 			msg.post("all:/handler", "show_tutorial")
 			sound.play("all:/sound#click1", {gain = 1})
+		elseif gui.pick_node(gui.get_node("btnsound"), action.x, action.y) then -- <5>
+			--msg.post("all:/handler", "show_tutorial")
+			--sound.play("all:/sound#click1", {gain = 1})
+			print("matiin sound")
+			local soundText = gui.get_node("soundtext")
+			if data.sound == true then
+				gui.set_text(soundText, "SOUND : OFF")
+				data.sound = false
+				sound.set_group_gain("master", 0)
+			else 
+				gui.set_text(soundText, "SOUND : ON")
+				data.sound = true
+				sound.set_group_gain("master", 1)
+				if (not data.bgm_play) then
+					data.bgm_play = true
+					sound.play("all:/sound#music", {gain = 0.25})
+				end
+			end
+			
+			
 		end
 	end
 			
